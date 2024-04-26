@@ -1,0 +1,65 @@
+[package]
+name = "casbin-rxqlite-adapter"
+version = "1.2.0"
+authors = ["Eason Chai <hackerchai.com@gmail.com>","Cheng JIANG <jiang.cheng@vip.163.com>" , "ha421 <hha835773@gmail.com>"]
+edition = "2018"
+license = "Apache-2.0"
+description = "Sqlx adapter for casbin-rs"
+homepage= "https://github.com/casbin-rs/sqlx-adapter"
+readme= "README.md"
+
+[dependencies]
+casbin = { version = "2.1.0", default-features = false }
+sqlx = { version = "0.7", default-features = false, features = [ "macros" ] }
+async-trait = "0.1.51"
+dotenv = { version = "0.15.0", default-features = false }
+tokio = { version = "1.10.0", default-features = false, optional = true }
+async-std = { version = "1.9.0", default-features = false, optional = true }
+[dependencies.sqlx-rxqlite]
+version = "0.1"
+path = "../sqlx-rxqlite"
+
+[features]
+default = ["runtime-tokio-rustls"]
+
+#databases
+
+
+# async runtime
+# async-std
+runtime-async-std-native-tls = ["casbin/runtime-async-std", "sqlx/runtime-async-std-native-tls"]
+runtime-async-std-rustls = ["casbin/runtime-async-std", "sqlx/runtime-async-std-rustls"]
+# tokio
+runtime-tokio-native-tls = ["casbin/runtime-tokio", "sqlx/runtime-tokio-native-tls"]
+runtime-tokio-rustls = ["casbin/runtime-tokio", "sqlx/runtime-tokio-rustls"]
+
+[dev-dependencies]
+async-std = { version = "1.9.0", features = [ "attributes" ] }
+tokio = { version = "1.10.0", features = [ "full" ] }
+
+futures-util = "*"
+anyhow = "*"
+tokio-test = "*"
+
+[dev-dependencies.rxqlite-client]
+version = "0.1"
+path = "../rxqlite-client"
+features = [ "test-dependency" ]
+
+
+[dev-dependencies.rxqlite-tests-common]
+version = "0.1"
+path = "../rxqlite/crates/rxqlite-tests-common"
+
+[dev-dependencies.rxqlite-lite-common]
+version = "0.1"
+path = "../rxqlite/crates/rxqlite-lite-common"
+
+
+[profile.release]
+codegen-units = 1
+lto           = true
+opt-level     = 3
+
+[profile.dev]
+split-debuginfo = "packed"
