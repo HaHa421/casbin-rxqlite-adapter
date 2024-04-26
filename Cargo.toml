@@ -37,9 +37,9 @@ runtime-tokio-rustls = ["casbin/runtime-tokio", "sqlx/runtime-tokio-rustls"]
 async-std = { version = "1.9.0", features = [ "attributes" ] }
 tokio = { version = "1.10.0", features = [ "full" ] }
 
-futures-util = "*"
-anyhow = "*"
-tokio-test = "*"
+futures-util = "0.3"
+anyhow = "1"
+#tokio-test = "*"
 
 [dev-dependencies.rxqlite-client]
 version = "0.1"
